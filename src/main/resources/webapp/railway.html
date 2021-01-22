@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News - Camel WebSocket - ws</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+
+</head>
+
+<body style="background-color:transparent">
+<div id='connect'>
+    <form id='connect_form'>
+        <dl>
+            <dt><p><b>Server url</b></p></dt>
+            <dd><input name="url" id="url" value="ws://localhost:9999/railway" size="30"></dd>
+            <dd><input type=submit id='connect_submit' value="Connect"></dd>
+        </dl>
+    </form>
+</div>
+<div id="disconnect">
+    <form id='disconnect_form'>
+        <input type=submit id='disconnect_submit' value="Disconnect">
+    </form>
+</div>
+
+<div id="msg">
+</div>
+
+<div>
+    <p>&nbsp;</p>
+    <hr></hr>
+    <p>&nbsp;</p>
+    <p><b>Railway Monitor</b></p>
+    <p>&nbsp;</p>
+</div>
+
+	<div id="main" class="panel">
+		<div id="map"></div>
+	</div>
+	
+<script type="text/javascript" src="js/jquery-1.7.2-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHhwRwDwBuqGYxZehTLcnJ5nY4AhLP_YY&callback=initMap" async defer></script>
+<script type="text/javascript" src="js/railway.js"></script>
+<script>
+    $(document).ready(function () {
+        var supported = ("WebSocket" in window);
+        if (!supported) {
+            var msg = "Your browser does not support Web Sockets. This example will not work properly.<br>";
+            msg += "Please use a Web Browser with Web Sockets support (WebKit or Google Chrome).";
+            $("#connect").html(msg);
+        }
+    });
+</script>
+</body>
+</html>
