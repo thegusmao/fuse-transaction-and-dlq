@@ -1,0 +1,1 @@
+SELECT * FROM COMPRA C WHERE C.ID = :#${header.compraId};

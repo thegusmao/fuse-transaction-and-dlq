@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FuseExpurgoArquivosApplication {
+public class FuseAMQTransactionalApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FuseExpurgoArquivosApplication.class, args);
+		SpringApplication.run(FuseAMQTransactionalApplication.class, args);
 	}
 
 }

@@ -1,11 +1,11 @@
 package br.com.redhat.routes;
 
-import java.util.OptionalLong;
-
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestParamType;
 import org.springframework.stereotype.Component;
+
+import br.com.redhat.bootstrap.Compra;
 
 @Component
 public class RestRoute extends RouteBuilder {
@@ -14,21 +14,25 @@ public class RestRoute extends RouteBuilder {
 	public void configure() throws Exception {
 		restConfiguration().host("0.0.0.0").port(8080).bindingMode(RestBindingMode.auto);
 
-		rest("/")
-			.post("expurgo")
-				.param()
-					.name("segundosRetencao").type(RestParamType.query).dataType("long").required(true)
-					.name("tipoArquivo").type(RestParamType.query).dataType("int").required(true)
-				.endParam()
-				.route()
-					.routeId("rest-expurga-arquivo")
-				.to("direct:encontra-arquivos")
-			.endRest();
-	}
-	
-	public static void main(String[] args) {
-		java.util.OptionalLong first = new java.util.Random().longs(10000L, 99999L).findFirst();
-		String s = "AV" + first.getAsLong();
-		System.out.println(s);
+		rest("/compras").post()
+//			.type(Compra.class)
+			.outType(Compra.class).consumes("application/json")
+			.param()
+				.name("compra").type(RestParamType.body).dataType("string").required(true)
+			.endParam()
+			.route()
+				.routeId("rest-nova-compra")
+			.to("direct:nova-compra")
+		.endRest();
+		
+		rest("/pagamentos").post()
+			.type(Compra.class).outType(Compra.class).consumes("application/json")
+			.param()
+				.name("compra").type(RestParamType.body).dataType("string").required(true)
+			.endParam()
+			.route()
+				.routeId("rest-efetua-pagamento")
+			.to("direct:pagamento")
+		.endRest();		
 	}
 }
